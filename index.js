@@ -7,7 +7,7 @@ const bot = new TelegramApi(token, {polling: true})
 const chats = {}
 
 const startGame = async (chatId) => {
-    await bot.sendSticker(chatId, `Сейчас я загадаю цифру от 0 до 9, а ты должен ее угадать;)`)
+    await bot.sendMessage(chatId, `Сейчас я загадаю цифру от 0 до 9, а ты должен ее угадать;)`)
     chats[chatId] = Math.floor(Math.random() * 10);
 
     await bot.sendMessage(chatId, `Отгадывай`, gameOptions);
@@ -43,7 +43,7 @@ const start = () => {
         if (data === '/again'){
             return startGame(chatId)
         }
-        if (data === chats[chatId]){
+        if (data == chats[chatId]){
             return  bot.sendMessage(chatId, `Поздравляю! Ты отгадал цифру ${chats[chatId]}!`, againOptions)
         } else {
             return bot.sendMessage(chatId, `Жаль, но вы проиграли и не отгадали цифру ${chats[chatId]}(`, againOptions)
